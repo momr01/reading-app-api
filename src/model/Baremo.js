@@ -42,7 +42,7 @@ const baremoSchema = new Schema(
     },
     toJSON: {
       transform: (doc, ret) => {
-        delete ret._id;
+      //  delete ret._id;
         //delete ret.dataEntry;
         delete ret.__v;
         //delete ret.payment;

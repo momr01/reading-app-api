@@ -57,7 +57,47 @@ const getAllBaremos = async (req, res) => {
   }
 };
 
+/**
+ * Edit a baremo
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+const editBaremo = async (req, res) => {
+  try {
+    //1. getting data from body
+    const { valor } = req.body;
+    const { id } = req.params;
+
+    if (!valor) {
+      return res
+        .status(400)
+        .json({ message: "The are some values required." });
+    }
+
+    //2. checking if the baremo already exists
+    let baremoExists = await Baremo.findOne({
+      _id: id,
+      user: req.user,
+    });
+    if (!baremoExists) {
+      return res.status(400).json({ message: "The baremo doesn't exist." });
+    }
+
+    //3. update the baremo
+    baremoExists.valor = valor;
+    baremoExists.dateEdit = new Date().toString();
+    
+    await baremoExists.save();
+
+    res.status(200).json({ message: "Baremo updated successfully." });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   addBaremo,
   getAllBaremos,
+  editBaremo
 };

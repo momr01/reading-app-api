@@ -13,4 +13,6 @@ router.route("/add").post(
   baremoController.addBaremo
 );
 
+router.route("/edit/:id").put(baremoController.editBaremo);
+
 module.exports = router;

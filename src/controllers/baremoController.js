@@ -84,9 +84,21 @@ const editBaremo = async (req, res) => {
       return res.status(400).json({ message: "The baremo doesn't exist." });
     }
 
+    // Fecha actual
+  const now = new Date();
+
+// Formato similar a: "Tue Jul 08 2025 21:53:06 GMT-0300 (hora estándar de Argentina)"
+  const formatted = now.toString();
+
+//console.log(formatted);
+
+// Guardar en tu objeto
+//baremoExists.dateEdit = formatted;
+
     //3. update the baremo
     baremoExists.valor = valor;
-    baremoExists.dateEdit = new Date().toString();
+    //baremoExists.dateEdit = new Date().toUTCString();
+    baremoExists.dateEdit = formatted;
     
     await baremoExists.save();
 
